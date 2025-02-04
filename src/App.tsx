@@ -1,4 +1,5 @@
 import styles from './App.module.css';
+import Form from './components/Form/Form';
 
 function App() {
   return (
@@ -6,7 +7,7 @@ function App() {
       <h1 className={styles.title}>Weather Page</h1>
 
       <div className={styles.container}>
-        <p>Place</p>
+        <Form />
         <p>Info</p>
       </div>
     </>
