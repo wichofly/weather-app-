@@ -1,0 +1,20 @@
+:root {
+  --white: #FBFBFB;
+  --primary: #FF9D3D;
+}
+
+/* 1rem = 10px */
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Lato", serif;
+  background-image: url('/src/assets/weather-bg.jpg');
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: var(--white);
+  position: relative;
+}
+
