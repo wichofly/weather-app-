@@ -21,7 +21,7 @@ const WeatherDetail = ({ weather }: WeatherDetailProps) => {
 
       <div className={styles.temperatures}>
         <p>
-          Sensation:
+          Sensation: {''}
           <span>{formatTemperature(weather.main.feels_like)} °C</span>
         </p>
         <p>
