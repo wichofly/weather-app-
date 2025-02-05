@@ -1,6 +1,6 @@
 # 🌦️ Weather App
 
-A simple React application to check the weather in cities selected.  
+A React application to check the weather in cities selected.  
 Users can search by city and country, and the app retrieves real-time weather data using the [OpenWeatherMap API.](https://openweathermap.org/current)
 
 ## 🚀 Features
