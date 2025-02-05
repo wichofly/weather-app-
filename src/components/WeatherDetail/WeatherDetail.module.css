@@ -1,0 +1,32 @@
+.container {
+  background-color: ghostwhite;
+  color: #272727;
+  border-radius: 1rem;
+  text-align: center;
+  padding: 1rem;
+  font-size: 1.5rem;
+}
+
+.description {
+  font-size: 2rem;
+  text-transform: capitalize;
+}
+
+.current {
+  font-size: 3rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.temperatures {
+  display: flex;
+  justify-content: space-around;
+}
+
+.temperatures p {
+  font-weight: 600;
+}
+
+.temperatures span {
+  font-weight: 400;
+}
