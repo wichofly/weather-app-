@@ -12,15 +12,10 @@ const Form = ({ fetchWeather }: FormProps) => {
     register,
     handleSubmit,
     formState: { errors },
-    resetField,
   } = useForm<SearchType>();
 
   const onSubmit: SubmitHandler<SearchType> = (data) => {
     fetchWeather(data);
-  };
-
-  const handleFocus = (field: keyof SearchType) => {
-    resetField(field);
   };
 
   return (
@@ -33,10 +28,11 @@ const Form = ({ fetchWeather }: FormProps) => {
           type="text"
           id="city"
           placeholder="city"
-          {...register('city', { required: true })}
-          onFocus={() => handleFocus('city')}
+          {...register('city', { required: 'City is required' })}
         />
-        {errors.city && <span className={styles.error}>City is required</span>}
+        {errors.city && (
+          <span className={styles.error}>{errors.city.message}</span>
+        )}
       </div>
 
       <div className={styles.field}>
@@ -45,8 +41,7 @@ const Form = ({ fetchWeather }: FormProps) => {
         </label>
         <select
           id="country"
-          {...register('country', { required: true })}
-          onFocus={() => handleFocus('country')}
+          {...register('country', { required: 'Country is required' })}
         >
           <option value="">--- Select Country ---</option>
           {countries.map(({ name, code }) => (
@@ -56,7 +51,7 @@ const Form = ({ fetchWeather }: FormProps) => {
           ))}
         </select>
         {errors.country && (
-          <span className={styles.error}>Country is required</span>
+          <span className={styles.error}>{errors.country.message}</span>
         )}
       </div>
 
