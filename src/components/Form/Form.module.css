@@ -28,6 +28,13 @@
   color: var(--white);
 }
 
+.error {
+  color: #FF5D5D;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: 0.25rem;
+}
+
 .submit {
   background-color: var(--primary);
   border: none;
