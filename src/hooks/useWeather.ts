@@ -1,7 +1,7 @@
-import axios from 'axios';
 import { z } from 'zod';
 import { SearchType } from '../interfaces/interface';
 import { useMemo, useState } from 'react';
+import { fetchGeoData, fetchWeatherData } from '../service/apiWeather';
 
 const Weather = z.object({
   name: z.string(),
@@ -41,34 +41,27 @@ const useWeather = () => {
   const [notFound, setNotFound] = useState(false);
 
   const fetchWeather = async (search: SearchType) => {
-    const api_key = import.meta.env.VITE_API_KEY;
     setLoading(true);
     setWeather(initialState);
     setNotFound(false);
 
     try {
-      const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${search.city},${search.country}&appid=${api_key}`;
+      const geoData = await fetchGeoData(search.city, search.country);
 
-      const { data } = await axios(geoUrl);
-
-      if (!data[0]) {
+      if (!geoData[0]) {
         setNotFound(true);
         return;
       }
 
-      console.log(data);
+      const lat = geoData[0].lat;
+      const lon = geoData[0].lon;
 
-      const lat = data[0].lat;
-      const lon = data[0].lon;
-
-      const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${api_key}&units=metric`;
-
-      const { data: weatherResult } = await axios(weatherUrl);
-      const result = Weather.safeParse(weatherResult);
+      const weatherData = await fetchWeatherData(lat, lon);
+      const result = Weather.safeParse(weatherData);
 
       if (result.success) {
         setWeather(result.data);
-        setNotFound(false)
+        setNotFound(false);
       } else {
         console.log('Wrong answer');
       }

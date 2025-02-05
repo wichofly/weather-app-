@@ -1,40 +1,25 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { countries } from '../../data/countries';
 import styles from './Form.module.css';
 import { SearchType } from '../../interfaces/interface';
-import Alert from '../Alert/Alert';
 
 interface FormProps {
   fetchWeather: (search: SearchType) => Promise<void>;
 }
 
 const Form = ({ fetchWeather }: FormProps) => {
-  const [search, setSearch] = useState<SearchType>({
-    city: '',
-    country: '',
-  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SearchType>();
 
-  const [alert, setAlert] = useState('');
-
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
-  ) => {
-    setSearch({ ...search, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (Object.values(search).includes('')) {
-      setAlert('All the fields are required');
-      return;
-    }
-    fetchWeather(search);
+  const onSubmit: SubmitHandler<SearchType> = (data) => {
+    fetchWeather(data);
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
-      {alert && <Alert>{alert}</Alert>}
+    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.field}>
         <label className={styles.label} htmlFor="city">
           City:
@@ -42,11 +27,12 @@ const Form = ({ fetchWeather }: FormProps) => {
         <input
           type="text"
           id="city"
-          name="city"
           placeholder="city"
-          value={search.city}
-          onChange={handleChange}
+          {...register('city', { required: 'City is required' })}
         />
+        {errors.city && (
+          <span className={styles.error}>{errors.city.message}</span>
+        )}
       </div>
 
       <div className={styles.field}>
@@ -55,9 +41,7 @@ const Form = ({ fetchWeather }: FormProps) => {
         </label>
         <select
           id="country"
-          value={search.country}
-          name="country"
-          onChange={handleChange}
+          {...register('country', { required: 'Country is required' })}
         >
           <option value="">--- Select Country ---</option>
           {countries.map(({ name, code }) => (
@@ -66,6 +50,9 @@ const Form = ({ fetchWeather }: FormProps) => {
             </option>
           ))}
         </select>
+        {errors.country && (
+          <span className={styles.error}>{errors.country.message}</span>
+        )}
       </div>
 
       <input className={styles.submit} type="submit" value="Check weather" />

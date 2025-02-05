@@ -1,50 +1,32 @@
-# React + TypeScript + Vite
+# 🌦️ Weather App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React application to check the weather in cities selected.  
+Users can search by city and country, and the app retrieves real-time weather data using the [OpenWeatherMap API.](https://openweathermap.org/current)
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Search Weather by City & Country**
+- **Displays:** Temperature, Weather Conditions, Sensation, Min & Max Temperature.
+- **Loading Spinner** while fetching data.
+- **Error Handling** for invalid locations.
 
-## Expanding the ESLint configuration
+## 🛠️ Technologies Used
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- ⚛ **React** – UI Library
+- 📝 **TypeScript** – Static typing for better maintainability
+- 🔗 **Axios** – HTTP requests to fetch weather data
+- ✅ **Zod** – Data validation for API responses
+- 🎯 **react-hook-form** – Form management and validation
+- 🎨 **CSS Modules** – Scoped styling
 
-- Configure the top-level `parserOptions` property like this:
+## Explanation of key Technologies
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- [Zod](https://www.npmjs.com/package/zod):
+  Zod is used for schema validation and type inference. It ensures that the data received from the weather API conforms to the expected structure. This helps in catching errors early and provides type safety throughout the application.
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- [Simple CSS Spinner](https://tobiasahlin.com/spinkit/):
+  A simple CSS spinner is used to indicate loading state while fetching data from the API. This enhances the user experience by providing visual feedback that the application is processing the request.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Deploy in Netlify
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+[Weather Search](https://relaxed-weatherapp.netlify.app/)
