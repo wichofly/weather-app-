@@ -3,7 +3,7 @@ import { SearchType } from '../interfaces/interface';
 import { useMemo, useState } from 'react';
 import { fetchGeoData, fetchWeatherData } from '../service/apiWeather';
 
-const Weather = z.object({
+const WeatherSchema = z.object({
   name: z.string(),
   main: z.object({
     temp: z.number(),
@@ -14,13 +14,13 @@ const Weather = z.object({
   weather: z.array(
     z.object({
       description: z.string(),
-    })
+    }),
   ),
 });
 
-export type Weather = z.infer<typeof Weather>;
+export type Weather = z.infer<typeof WeatherSchema>;
 
-const initialState = {
+const initialState: Weather = {
   name: '',
   main: {
     temp: 0,
@@ -57,7 +57,7 @@ const useWeather = () => {
       const lon = geoData[0].lon;
 
       const weatherData = await fetchWeatherData(lat, lon);
-      const result = Weather.safeParse(weatherData);
+      const result = WeatherSchema.safeParse(weatherData);
 
       if (result.success) {
         setWeather(result.data);
