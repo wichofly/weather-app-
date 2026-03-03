@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { GeoData } from '../interfaces/interface';
 
 const api_key = import.meta.env.VITE_API_KEY;
 
@@ -7,7 +8,7 @@ const getGeoUrl = (city: string, country: string) =>
 
 export const fetchGeoData = async (city: string, country: string) => {
   const geoUrl = getGeoUrl(city, country);
-  const { data } = await axios(geoUrl);
+  const { data } = await axios.get<GeoData[]>(geoUrl);
   return data;
 };
 
@@ -16,6 +17,6 @@ const getWeatherUrl = (lat: number, lon: number) =>
 
 export const fetchWeatherData = async (lat: number, lon: number) => {
   const weatherUrl = getWeatherUrl(lat, lon);
-  const { data } = await axios(weatherUrl);
+  const { data } = await axios.get<unknown>(weatherUrl);
   return data;
 };

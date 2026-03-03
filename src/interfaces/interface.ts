@@ -8,6 +8,11 @@ export interface Country {
   name: string;
 }
 
+export interface GeoData {
+  lat: number;
+  lon: number;
+}
+
 export interface Weather {
   name: string;
   main: {
