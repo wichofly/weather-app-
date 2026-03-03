@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { SearchType } from '../interfaces/interface';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { fetchGeoData, fetchWeatherData } from '../service/apiWeather';
 
 const WeatherSchema = z.object({
@@ -72,7 +72,7 @@ const useWeather = () => {
     }
   };
 
-  const hasWeatherData = useMemo(() => weather.name, [weather]);
+  const hasWeatherData = Boolean(weather.name);
 
   return { weather, loading, notFound, fetchWeather, hasWeatherData };
 };
